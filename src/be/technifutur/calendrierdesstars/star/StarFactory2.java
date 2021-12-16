@@ -2,11 +2,9 @@ package be.technifutur.calendrierdesstars.star;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class StarFactory2 extends AbstractStarFactory {
-    private static String stringCleaner(String s) {
+    private String stringCleaner(String s) {
         s = s.trim()
                 .toLowerCase()
                 .replaceAll("fevrier", "février")
@@ -37,9 +35,9 @@ public class StarFactory2 extends AbstractStarFactory {
 
     @Override
     protected Star createStar(String s) {
-        String name = "";
         String job = null;
         String[] tab = s.split(" : ");
+        String name = tab[0];
         String birth = tab[1];
         String death = null;
         int indexOfOpenBracket;
@@ -51,10 +49,9 @@ public class StarFactory2 extends AbstractStarFactory {
             indexOfCloseBracket = tab[0].indexOf(')');
             job = tab[0].substring(indexOfOpenBracket + 1, indexOfCloseBracket);
             name = tab[0].substring(0, indexOfOpenBracket - 1);
-        } else {
-            name = tab[0];
         }
 
+        // split pour récupérer la date de naissance et celle de décès si elle existe
         if(tab[1].contains("&")) {
             String[] dates = tab[1].split(" & ");
             birth = dates[0];

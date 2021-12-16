@@ -1,8 +1,5 @@
 package be.technifutur.calendrierdesstars.star;
 
-import be.technifutur.calendrierdesstars.comparators.BirthdayNameStarComparator;
-
-import java.io.File;
 import java.util.*;
 
 public class StarFactory1 extends AbstractStarFactory {
@@ -24,10 +21,10 @@ public class StarFactory1 extends AbstractStarFactory {
     @Override
     protected Star createStar(String s) {
         String[] tab = s.split(" : ");
-        return new Star(tab[1], AbstractStarFactory.createLocalDate(tab[0]));
+        return new Star(tab[1].toLowerCase(), AbstractStarFactory.createLocalDate(tab[0]));
     }
 
-    private static void splitEsperluette(String s, List<String> stars) {
+    private void splitEsperluette(String s, List<String> stars) {
         int indexEsperluette = s.indexOf('&');
         int indexColumn = s.indexOf(':');
         String birthday = s.substring(0, indexColumn + 1);

@@ -1,26 +1,24 @@
 package be.technifutur.calendrierdesstars.star;
 
-import be.technifutur.calendrierdesstars.comparators.BirthdayNameStarComparator;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class AbstractStarFactory {
     protected abstract List<String> prepareString(List<String> fileContent);
 
     protected abstract Star createStar(String s);
 
-    public Set<Star> getStars(File filename) {
-        Set<Star> stars = new TreeSet<>(new BirthdayNameStarComparator());
+    public List<Star> getStars(File filename) {
         List<String> fileContent = StarReader.read(filename);
+        List<String> preparedList = prepareString(fileContent);
+        List<Star> stars = new ArrayList<>();
 
-        for (String s : prepareString(fileContent)) {
+        for (String s : preparedList) {
             stars.add(createStar(s));
         }
+
         return stars;
     }
 
