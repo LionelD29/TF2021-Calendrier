@@ -5,6 +5,12 @@ import java.util.List;
 
 public class StarFactory2 extends AbstractStarFactory {
     private String stringCleaner(String s) {
+        /*
+            Retire toutes les fautes de frappe, caractères mal placés, ... dans la string afin de la préparer
+            à être transformée en instance de la classe Star
+            On remplace aussi les formes de "décédé le" par un & afin de faciliter la récupération des dates de naissance
+            et de déces
+         */
         s = s.trim()
                 .toLowerCase()
                 .replaceAll("fevrier", "février")
@@ -35,31 +41,33 @@ public class StarFactory2 extends AbstractStarFactory {
 
     @Override
     protected Star createStar(String s) {
-        String job = null;
+        /*
+            Retourne une instance de la classe Star générée à partir d'une String nettoyée extraite du fichier texte
+         */
         String[] tab = s.split(" : ");
+
         String name = tab[0];
         String birth = tab[1];
+        String job = null;
         String death = null;
-        int indexOfOpenBracket;
-        int indexOfCloseBracket;
 
-        // Si il y a une profession, on la récupère, sinon
+        // Si il y a une profession (présence de parenthèses (...)), on la récupère
+        // ainsi que le nom présent juste avant les parenthèses
         if (tab[0].contains("(") && tab[0].contains(")")) {
-            indexOfOpenBracket = tab[0].indexOf('(');
-            indexOfCloseBracket = tab[0].indexOf(')');
+            int indexOfOpenBracket = tab[0].indexOf('(');
+            int indexOfCloseBracket = tab[0].indexOf(')');
             job = tab[0].substring(indexOfOpenBracket + 1, indexOfCloseBracket);
             name = tab[0].substring(0, indexOfOpenBracket - 1);
         }
 
-        // split pour récupérer la date de naissance et celle de décès si elle existe
+        // split pour récupérer la date de naissance et celle de décès, si elle existe
         if(tab[1].contains("&")) {
             String[] dates = tab[1].split(" & ");
             birth = dates[0];
             death = dates[1];
         }
 
-        return new Star(name,
-                        job,
+        return new Star(name, job,
                         AbstractStarFactory.createLocalDate(birth),
                         AbstractStarFactory.createLocalDate(death));
     }

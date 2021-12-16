@@ -3,6 +3,10 @@ package be.technifutur.calendrierdesstars.util;
 import java.time.LocalDate;
 
 public class FormatDate {
+    /*
+        Formatte l'affiche standard des LocalDates sous la forme '25 janvier 1990'
+     */
+
     public static String formatDate(LocalDate date) {
         return (date.getDayOfMonth() == 1 ? "1er" : date.getDayOfMonth())
                 + " " + monthFR(date.getMonthValue())

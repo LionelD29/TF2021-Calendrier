@@ -18,6 +18,9 @@ public class AfterNameBirth implements Runnable {
 
     @Override
     public void run() {
+        /*
+            Ce programme recherche combien de personnes dans la collection sont nées après une personne choisie par l'utilisateur
+         */
         String name = "";
         boolean isValid = false;
 

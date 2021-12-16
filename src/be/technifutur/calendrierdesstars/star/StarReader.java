@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 
 public class StarReader {
     public static List<String> read(File filename) {
+        /*
+            Lecture d'un fichier texte et renvoi d'une List<String>
+         */
         List<String> fileContent = new ArrayList<>();
         try (Scanner scan = new Scanner(filename)) {
             while (scan.hasNext()) {

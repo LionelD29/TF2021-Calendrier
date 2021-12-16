@@ -5,6 +5,9 @@ import java.util.*;
 public class StarFactory1 extends AbstractStarFactory {
     @Override
     protected List<String> prepareString(List<String> fileContent) {
+        /*
+            Prépare les lignes extraites du fichier texte à être transformée en objet de la classe Star
+         */
         List<String> starsStrings = new ArrayList<>();
         // On résoud les &
         for (String line : fileContent) {
@@ -25,6 +28,13 @@ public class StarFactory1 extends AbstractStarFactory {
     }
 
     private void splitEsperluette(String s, List<String> stars) {
+        /*
+            Sépare les lignes qui contiennent le caractère & (correspondant à des jumeaux/jumelles) :
+            Ex : 13 juin 1986 : Mary-Kate Olsen & Ashley Olsen
+            Résultat :
+                13 juin 1986 : Mary-Kate Olsen
+                13 juin 1986 : Ashley Olsen
+         */
         int indexEsperluette = s.indexOf('&');
         int indexColumn = s.indexOf(':');
         String birthday = s.substring(0, indexColumn + 1);

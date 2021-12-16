@@ -42,6 +42,10 @@ public class MenuFactory {
         return createItem("Créer un SortedSet trié sur les noms", new NameSortedSet(stars));
     }
 
+    private MenuNode getItemStars60sAtKey() {
+        return createItem("Stars nées dans les années 60 à une lettre donnée d'un répertoire", new Stars60sAtKey(stars));
+    }
+
 
     private MenuNode createItem(String name, Runnable action) {
         Item item = new Item();
@@ -62,10 +66,13 @@ public class MenuFactory {
         MenuModel model = new MenuModel("Menu principal");
         model.addNode(getItemExit());
         model.addNode(getItemBirth60s());
-        model.addNode(getItemAfterNameBirth());
-        model.addNode(getItemFirstNameLetterSorted());
-        model.addNode(getItemBirthdaySortedSet());
         model.addNode(getItemNameSortedSet());
+        model.addNode(getItemBirthdaySortedSet());
+        model.addNode(getItemFirstNameLetterSorted());
+        model.addNode(getItemStars60sAtKey());
+
+        model.addNode(getItemAfterNameBirth());
+
         return model;
     }
 }

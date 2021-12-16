@@ -1,6 +1,7 @@
 package be.technifutur.calendrierdesstars.exercices;
 
 import be.technifutur.calendrierdesstars.star.Star;
+import be.technifutur.calendrierdesstars.util.BirthInYears;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,16 +13,12 @@ public class Birth60s implements Runnable {
     public Birth60s(Collection<Star> stars) {
         this.star.addAll(stars);
     }
+
     @Override
     public void run() {
-        int nb = 0;
-
-        for (Star s : this.star) {
-            if (s.getBirthday().getYear() >= 1960 && s.getBirthday().getYear() < 1970) {
-                nb++;
-            }
-        }
-
-        System.out.printf("%d stars nées dans les années 60%n", nb);
+        /*
+            Ce programme calcule combien de personnes dans la collection sont nées dans les années 60
+         */
+        System.out.printf("%d stars nées dans les années 60%n", BirthInYears.nbBirth60s(this.star));
     }
 }

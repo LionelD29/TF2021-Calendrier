@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class NameSortedSet implements Runnable {
+
     private List<Star> stars = new ArrayList<>();
 
     public NameSortedSet(Collection<Star> stars) {
@@ -18,6 +19,9 @@ public class NameSortedSet implements Runnable {
 
     @Override
     public void run() {
+        /*
+            Ce programme affiche la collection de stars triée par dates de naissance.
+         */
         Set<Star> stars = SortSetWithComparator.sortedSet(this.stars, new NameComparator());
         for (Star s : stars) {
             System.out.println(s);

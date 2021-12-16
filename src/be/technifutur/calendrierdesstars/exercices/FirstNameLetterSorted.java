@@ -1,10 +1,12 @@
 package be.technifutur.calendrierdesstars.exercices;
 
 import be.technifutur.calendrierdesstars.star.Star;
+import be.technifutur.calendrierdesstars.util.FirstNameLetterMap;
 
 import java.util.*;
 
 public class FirstNameLetterSorted implements Runnable {
+
     private List<Star> stars = new ArrayList<>();
 
     public FirstNameLetterSorted(Collection<Star> stars) {
@@ -13,18 +15,11 @@ public class FirstNameLetterSorted implements Runnable {
 
     @Override
     public void run() {
-        Map<Character, List<Star>> dico = new TreeMap<>();
-
-        for (Star s : this.stars) {
-            Character firstLetter = s.getName().toUpperCase().charAt(0);
-            List<Star> l = dico.get(firstLetter);
-
-            if (l == null) {
-                l = new ArrayList<>();
-                dico.put(firstLetter, l);
-            }
-            l.add(s);
-        }
+        /*
+            Ce programme créé une map ayant pour clés les lettres de l'alphabet et pour valeurs les listes de stars de
+            la collection dont la première lettre du nom correspond à la clé
+         */
+        Map<Character, List<Star>> dico = FirstNameLetterMap.createFirstNameLetterMap(this.stars);
 
         for (Map.Entry<Character, List<Star>> e : dico.entrySet()) {
             System.out.println(e.getKey() + " :");
