@@ -16,8 +16,8 @@ public class Main {
         File file1 = new File("calendrier/star1.txt");
         File file2 = new File("calendrier/star2.txt");
         List<Star> list = new ArrayList<>();
-        list.addAll(new StarFactory1().getStars(file1));
         list.addAll(new StarFactory2().getStars(file2));
+        list.addAll(new StarFactory1().getStars(file1));
 
         // Création de l'architecture MVC pour le menu de sélection des exercices
         MenuFactory factory = new MenuFactory(list);

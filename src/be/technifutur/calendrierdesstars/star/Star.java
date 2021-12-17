@@ -1,6 +1,6 @@
 package be.technifutur.calendrierdesstars.star;
 
-import be.technifutur.calendrierdesstars.util.FormatDate;
+import be.technifutur.util.Util;
 
 import java.time.LocalDate;
 
@@ -54,25 +54,44 @@ public class Star {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Star star = (Star) o;
+
+        if (name != null ? !name.equals(star.name) : star.name != null) return false;
+
+        return birthday != null ? birthday.equals(star.birthday) : star.birthday == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         String result = "";
         if (job == null) {
             result = "Star{" +
                     "name='" + name + '\'' +
-                    ", birthday=" + FormatDate.formatDate(birthday) +
+                    ", birthday=" + Util.formatDate(birthday) +
                     '}';
         } else if (death == null) {
             result = "Star{" +
                     "name='" + name + '\'' +
                     ", job='" + job + '\'' +
-                    ", birthday=" + FormatDate.formatDate(birthday) +
+                    ", birthday=" + Util.formatDate(birthday) +
                     '}';
         } else {
             result = "Star{" +
                     "name='" + name + '\'' +
                     ", job='" + job + '\'' +
-                    ", birthday=" + FormatDate.formatDate(birthday) +
-                    ", death=" + FormatDate.formatDate(death) +
+                    ", birthday=" + Util.formatDate(birthday) +
+                    ", death=" + Util.formatDate(death) +
                     '}';
         }
         return result;

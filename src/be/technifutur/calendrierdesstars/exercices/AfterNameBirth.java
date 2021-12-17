@@ -1,19 +1,18 @@
 package be.technifutur.calendrierdesstars.exercices;
 
-import be.technifutur.calendrierdesstars.comparators.BirthdayComparator;
-import be.technifutur.calendrierdesstars.comparators.NameComparator;
 import be.technifutur.calendrierdesstars.star.Star;
+import be.technifutur.util.Util;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AfterNameBirth implements Runnable {
 
-    private final List<Star> star = new ArrayList<>();
-    private static final Scanner scan = new Scanner(System.in);
+    private final List<Star> stars = new ArrayList<>();
 
     public AfterNameBirth(Collection<Star> stars) {
-        this.star.addAll(stars);
+        this.stars.addAll(stars);
     }
 
     @Override
@@ -22,38 +21,18 @@ public class AfterNameBirth implements Runnable {
             Ce programme recherche combien de personnes dans la collection sont nées après une personne choisie par l'utilisateur
          */
         String name = "";
-        boolean isValid = false;
+        LocalDate dateToSearch = null;
 
         System.out.println("Entrez un nom. Le programme vous dira combien de personnes dans les listes sont néées après cette personne");
-        while (!isValid) {
-            name = scan.nextLine();
-            if (!name.equals("")) {
-                isValid = true;
-            } else {
-                System.out.println("Veuillez au moins saisir un nom !");
-            }
-            System.out.println();
-        }
-
-        // Creation des SortedSet qui contiennent les listes triées par noms ou dates de naissance
-        Set<Star> sortedName = new TreeSet<>(new NameComparator());
-        Set<Star> sortedBirthday = new TreeSet<>(new BirthdayComparator());
-        sortedName.addAll(this.star);
-        sortedBirthday.addAll(this.star);
-
-        // Exercice
+        name = Util.nameInput();
 
         // Cherche la date de naissance de la personne saisie. null si elle n'existe pas
-        LocalDate dateToSearch = null;
-        for (Star s : sortedName) {
-            if (s.getName().equals(name)) {
-                dateToSearch = s.getBirthday();
-            }
-        }
+        dateToSearch = Util.getStar(name, Util.createFirstNameLetterMap(this.stars)).getBirthday();
+
         // Cherche combien de personnes sont nées après la personne choisie par l'utilisateur
         if (dateToSearch != null) {
             int count = 0;
-            for (Star s : sortedBirthday) {
+            for (Star s : stars) {
                 if (s.getBirthday().compareTo(dateToSearch) > 0) {
                     count++;
                 }

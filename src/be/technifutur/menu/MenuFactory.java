@@ -46,6 +46,10 @@ public class MenuFactory {
         return createItem("Stars nées dans les années 60 à une lettre donnée d'un répertoire", new Stars60sAtKey(stars));
     }
 
+    private MenuNode getItemGetStar() {
+        return createItem("Retourner la star dont on passe le nom dans le répertoire", new GetStar(stars));
+    }
+
 
     private MenuNode createItem(String name, Runnable action) {
         Item item = new Item();
@@ -70,7 +74,7 @@ public class MenuFactory {
         model.addNode(getItemBirthdaySortedSet());
         model.addNode(getItemFirstNameLetterSorted());
         model.addNode(getItemStars60sAtKey());
-
+        model.addNode(getItemGetStar());
         model.addNode(getItemAfterNameBirth());
 
         return model;

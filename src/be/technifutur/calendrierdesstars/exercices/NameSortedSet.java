@@ -2,7 +2,7 @@ package be.technifutur.calendrierdesstars.exercices;
 
 import be.technifutur.calendrierdesstars.comparators.NameComparator;
 import be.technifutur.calendrierdesstars.star.Star;
-import be.technifutur.calendrierdesstars.util.SortSetWithComparator;
+import be.technifutur.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class NameSortedSet implements Runnable {
         /*
             Ce programme affiche la collection de stars triée par dates de naissance.
          */
-        Set<Star> stars = SortSetWithComparator.sortedSet(this.stars, new NameComparator());
+        Set<Star> stars = Util.sortedSet(this.stars, new NameComparator());
         for (Star s : stars) {
             System.out.println(s);
         }

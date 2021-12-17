@@ -6,27 +6,18 @@ import java.util.List;
 public class StarFactory2 extends AbstractStarFactory {
     private String stringCleaner(String s) {
         /*
-            Retire toutes les fautes de frappe, caractères mal placés, ... dans la string afin de la préparer
-            à être transformée en instance de la classe Star
-            On remplace aussi les formes de "décédé le" par un & afin de faciliter la récupération des dates de naissance
+            Nettoye la String et remplace les formes de "décédé le" par un & afin de faciliter la récupération des dates de naissance
             et de déces
          */
         s = s.trim()
-                .toLowerCase()
-                .replaceAll("fevrier", "février")
-                .replaceAll("aout", "août")
-                .replaceAll("decembre", "décembre")
-                .replace(", décédé le", " &")
-                .replace("et décédé le", "&")
-                .replace("décédée le :", "&")
-                .replace("décédé le :", "&")
-                .replace("décédée le", "&")
-                .replace("décédé le", "&")
-                .replace("  ", " ");
-        if (s.endsWith(")")) {
-            s = s.substring(0, s.length() - 1);
-        }
-        return s;
+             .toLowerCase()
+             .replace("fevrier", "février")
+             .replace("aout", "août")
+             .replace("decembre", "décembre")
+             .replaceAll("(et |, )?décédé[e]? le( :)?", " &")
+             .replaceAll(" {2,}", " ");
+
+        return s.endsWith(")") ? s.substring(0, s.length() - 1) : s;
     }
 
     @Override
@@ -53,7 +44,11 @@ public class StarFactory2 extends AbstractStarFactory {
 
         // Si il y a une profession (présence de parenthèses (...)), on la récupère
         // ainsi que le nom présent juste avant les parenthèses
-        if (tab[0].contains("(") && tab[0].contains(")")) {
+        // La regex équivaut à
+        /*
+            tab[0].contains("(") && tab[0].contains(")")
+        */
+        if (tab[0].matches(".+ \\(.+\\)")) {
             int indexOfOpenBracket = tab[0].indexOf('(');
             int indexOfCloseBracket = tab[0].indexOf(')');
             job = tab[0].substring(indexOfOpenBracket + 1, indexOfCloseBracket);
